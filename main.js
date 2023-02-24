@@ -16,6 +16,14 @@ song = loadSound("music.mp3");
 }
 function draw() {
 image(video, 0, 0, 600, 500);
+fill("#FF0000");
+stroke("FF0000");
+circle(leftWristX, leftWristY, 20);
+number_leftWristY = Number(leftWristY);
+floored_number = floor(number_leftWristY);
+volume = floored_number/500;
+document.getElementById("volume").innerHTML = "Volume =" + volume;
+song.setVolume(volume);
 }
 function play() {
 song.play();
