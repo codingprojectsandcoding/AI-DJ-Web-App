@@ -4,6 +4,7 @@ leftWristY = 0;
 rightWristX = 0;
 rightWristY = 0;
 score_leftWrist = 0;
+score_rightWrist = 0;
 function setup() {
 canvas = createCanvas(600, 500);
 canvas.center();
@@ -19,6 +20,29 @@ function draw() {
 image(video, 0, 0, 600, 500);
 fill("#FF0000");
 stroke("FF0000");
+if(score_rightWrist > 0.2) {
+circle(rightWristX, rightWristY, 20);
+if(rightWristY > 0 && rightWristY <= 100) {
+document.getElementById("speed").innerHTML = "Speed = 0.5x";
+song.rate(0.5);
+}
+else if(rightWristY > 100 && rightWristY <= 200) {
+    document.getElementById("speed").innerHTML = "Speed = 1x";
+    song.rate(1);
+    }
+ else if(rightWristY > 200 && rightWristY <= 300) {
+        document.getElementById("speed").innerHTML = "Speed = 1.5x";
+        song.rate(1.5);
+        }
+        else if(rightWristY > 300 && rightWristY <= 400) {
+            document.getElementById("speed").innerHTML = "Speed = 2x";
+            song.rate(2);
+            }
+            else if(rightWristY > 400 && rightWristY <= 500) {
+                document.getElementById("speed").innerHTML = "Speed = 2.5x";
+                song.rate(2.5);
+                }
+}
 if (score_leftWrist > 0.2) {
 circle(leftWristX, leftWristY, 20);
 number_leftWristY = Number(leftWristY);
@@ -40,7 +64,9 @@ function gotPoses(results) {
 if(results.length > 0) {
 console.log(results);
 score_leftWrist = results[0].pose.keypoints[9].score;
-console.log("Score =" + score_leftWrist);
+score_rightWrist = results[0].pose.keypoints[10].score;
+console.log(" Left Wrist Score =" + score_leftWrist);
+console.log("Right Wrist Score =" + score_rightWrist);
 leftWristX = results[0].pose.leftWrist.x;
 leftWristY = results[0].pose.leftWrist.y;
 console.log("Left Wrist X ="+ leftWristX + "Left Wrist Y =" + leftWristY);
